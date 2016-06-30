@@ -23,12 +23,13 @@ call vundle#begin()
     Plugin 'vim-airline/vim-airline'
     Plugin 'scrooloose/nerdtree'
     Plugin 'fholgado/minibufexpl.vim'
-    Plugin 'christoomey/vim-tmux-navigator'
+    " Plugin 'christoomey/vim-tmux-navigator'
     Plugin 'scrooloose/syntastic'
     Plugin 'scrooloose/nerdcommenter'
     Plugin 'SirVer/ultisnips'  " snippets plugin
     Plugin 'honza/vim-snippets'  " Snippets are separated from the plugin.
 
+    Plugin 'hynek/vim-python-pep8-indent'
 
     " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -109,12 +110,13 @@ set display=uhex  " Show unprintable characters hexadecimal as <xx>
 set cursorline
 set colorcolumn=80,100
 
-
 " =============================================================================
 " ================================= functions =================================
 " =============================================================================
+
 function! ExecuteWithNormalizeSplits(command)
-    " about "a:" see :help internal-variables
+    " e.g. after show/hide NERDTree window
+    " a:… - function argument "…" (see :help internal-variables)
     execute a:command
     execute "wincmd ="
 endfunction
@@ -145,12 +147,10 @@ map <S-Tab> <<
 map <C-E>n :lnext<CR>
 map <C-E>p :lprev<CR>
 
-nnoremap <leader><space> :nohlsearch<CR>
+nnoremap <Leader><space> :nohlsearch<CR>
 
-map <C-Left> <C-h>
-map <C-Down> <C-j>
-map <C-Up> <C-k>
-map <C-Right> <C-l>
+map <Leader>w :set wrap!<CR>
+map <Leader>p :set paste!<CR>
 
 " =============================================================================
 " ================================= Plugin specific settings ==================
@@ -169,14 +169,11 @@ let g:ycm_complete_in_comments = 1
 map gdf :YcmCompleter GoTo<CR>
 map <Leader>t :call ExecuteWithNormalizeSplits("NERDTreeToggle")<CR>
 map <Leader>e :MBEToggle<CR>
-map <Leader>p :set paste!<CR>
-map <Leader>w :set wrap!<CR>
-
 
 " ----------- Syntastic ----------------
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 
 let g:syntastic_python_checkers = ['flake8', 'pylint', 'pep8']
