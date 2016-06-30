@@ -198,6 +198,10 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 let NERDTreeIgnore = ['\~$', '\.pyc$']
 
 " ================================= End =======================================
+"
+" ----------- notes --------------------
+" :help internal-variables  " about variable types
+"
 
 " To future
 
@@ -216,5 +220,3 @@ let NERDTreeIgnore = ['\~$', '\.pyc$']
 " set backupskip=/tmp/*,/private/tmp/*
 " set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 " set writebackup
-
-
