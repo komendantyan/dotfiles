@@ -1,5 +1,5 @@
 [alias]
-    hist = log --all --graph --date=short --pretty=format:\"%C(bold)%h%Creset  %ad  %><(20,trunc)[%an]  %<(50,trunc)%C(green)%s%Creset  %C(bold red)%d%Creset\"
+    hist = log --all --graph --date=short --pretty=format:\"%C(bold)%h%Creset  %ad  %><(20,trunc)[%C(yellow)%an%Creset] ········ %<(80,trunc)%s%Creset  %C(reverse)%d%Creset\"
 [user]
 	name = Andrey Komendantyan
 	email = komendantyan@gmail.com
