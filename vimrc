@@ -60,6 +60,8 @@ set autoread                    " update file if it has been canged outside
                                 " but not inside vim
 set backspace=indent,eol,start  " use backspace as usual
 
+set ttimeoutlen=50
+
 " ------------ indentation -------------
 set shiftwidth=4
 set tabstop=4
