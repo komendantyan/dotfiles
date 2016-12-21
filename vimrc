@@ -30,6 +30,7 @@ call vundle#begin()
     Plugin 'honza/vim-snippets'  " Snippets are separated from the plugin.
 
     Plugin 'hynek/vim-python-pep8-indent'
+    Plugin 'kshenoy/vim-signature'
 
     " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -97,6 +98,7 @@ set incsearch       " show what found while typing search pattern
 set hlsearch        " highlight what found
 set ignorecase      " when searching pattern
 set nowrapscan      " do not loop search
+set smartcase       " smart case when searching (a=[aA], [A]=[A])
 
 " ----------- others :set -------------
 set laststatus=2  " always show statusbar
@@ -179,7 +181,10 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 
+" do not forget to pip intall flake8, pylint, pep8
 let g:syntastic_python_checkers = ['flake8', 'pylint', 'pep8']
+let g:syntastic_python_flake8_post_args='--disable=E501'
+let g:syntastic_python_pylint_post_args='--disable=missing-docstring,too-few-public-methods'
 " let g:syntastic_python_pylint_post_args='--disable=C0103,C0111'
 
 " ------------ MiniBuferExplorer -------
