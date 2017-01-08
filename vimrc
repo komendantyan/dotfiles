@@ -32,6 +32,8 @@ call vundle#begin()
     Plugin 'hynek/vim-python-pep8-indent'
     Plugin 'kshenoy/vim-signature'
 
+    Plugin 'wannesm/wmgraphviz.vim'
+
     " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
