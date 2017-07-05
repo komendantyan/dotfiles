@@ -117,3 +117,4 @@ fi
 
 # Variables
 export EDITOR=vim
+export PATH=$HOME/bin:$PATH
