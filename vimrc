@@ -86,7 +86,12 @@ set undoreload=10000        " number of lines to save for undo
 " ------------ colorscheme ------------
 set t_Co=256            " add native colors for terminals except tty
 colorscheme molokai     " set my colorscheme
-hi Folded ctermfg=237 ctermbg=232
+hi Folded ctermfg=240 ctermbg=232
+
+hi DiffAdd                     ctermbg=17
+hi DiffChange      ctermfg=181 ctermbg=239
+hi DiffDelete      ctermfg=89  ctermbg=53
+hi DiffText                    ctermbg=244 cterm=NONE
 
 " ----------- folding -----------------
 set foldenable
