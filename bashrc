@@ -117,25 +117,12 @@ fi
 
 # Variables
 export EDITOR=vim
-export PATH=$HOME/bin:$PATH
+export PATH=$HOME/bin:/opt/wine-staging/bin:$PATH
+export PHOME="$HOME/projects/$(tmux display-message -p '#S')"
 export PYLIBS=/usr/local/lib/python3.5/dist-packages
-
-if [[ -n $TMUX ]]; then
-    export PHOME=$(tmux display-message -p "$HOME/projects/#{session_name}")
-fi
 
 # config less
 # ---------------
 export PAGER=less
 export LESS='-SR'
-
-# Less colors for man pages
-#export LESS_TERMCAP_mb=$red  # blinking
-#export LESS_TERMCAP_md=$orange  # bold
-#export LESS_TERMCAP_so=$purple  # standout-mode
-#export LESS_TERMCAP_us=$green  # begin underline
-
-#export LESS_TERMCAP_ue=$default  # end underline
-#export LESS_TERMCAP_me=$default  # end mode
-#export LESS_TERMCAP_se=$default  # end standout-mode
 
