@@ -10,52 +10,32 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
     Plugin 'VundleVim/Vundle.vim'  " let Vundle manage Vundle, required
 
-    " examples
-    " Plugin 'tpope/vim-fugitive'  " plugin on GitHub repo
-    " Plugin 'L9'  " plugin from http://vim-scripts.org/vim/scripts.html
-    " Plugin 'git://git.wincent.com/command-t.git'  " Git plugin not hosted on GitHub
-    " Plugin 'file:///home/gmarik/path/to/plugin'  " git repos on your local machine 
-    " Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}  " custom runtime path
-    " Plugin 'ascenator/L9', {'name': 'newL9'}  " avoid a Naming conflict
+    Plugin 'tomasr/molokai'  " colorcheme
 
-    Plugin 'Valloric/YouCompleteMe'
-    Plugin 'tomasr/molokai'
-    Plugin 'vim-airline/vim-airline'
-    Plugin 'scrooloose/nerdtree'
-    Plugin 'fholgado/minibufexpl.vim'
-    " Plugin 'christoomey/vim-tmux-navigator'
-    Plugin 'scrooloose/syntastic'
-    Plugin 'scrooloose/nerdcommenter'
+    " IDE like viewing
+    Plugin 'scrooloose/nerdtree'  " file browser
+    Plugin 'fholgado/minibufexpl.vim'  " buffer manager
+    Plugin 'majutsushi/tagbar'  " class browser
+    Plugin 'vim-airline/vim-airline'  " status line
+
+    " Work with code
+    Plugin 'scrooloose/syntastic'  " syntax checker
+    Plugin 'Valloric/YouCompleteMe'  " autocompleter
+    Plugin 'jiangmiao/auto-pairs'  " comfortale work with parentesis
+    Plugin 'scrooloose/nerdcommenter'  " simple comment code
     Plugin 'SirVer/ultisnips'  " snippets plugin
     Plugin 'honza/vim-snippets'  " Snippets are separated from the plugin.
 
-    Plugin 'hynek/vim-python-pep8-indent'
-    Plugin 'kshenoy/vim-signature'
+    " Python-specific
+    Plugin 'tmhedberg/SimpylFold'  " folding python code
+    Plugin 'hynek/vim-python-pep8-indent'  " some fix for autoident in python
 
-    Plugin 'wannesm/wmgraphviz.vim'
-    Plugin 'tpope/vim-fugitive'
+    "Work with Git
+    Plugin 'tpope/vim-fugitive'  " integration with git
 
-    Plugin 'jiangmiao/auto-pairs'
-
-    " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-" filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
 
-" =============================================================================
-" ================================= Setting options ===========================
-" =============================================================================
-" Use :help 'option' (with quotes) to see the documentation for the given option.
 
 " ------------ some options ------------
 syntax enable
@@ -66,13 +46,13 @@ set autoread                    " update file if it has been canged outside
                                 " but not inside vim
 set backspace=indent,eol,start  " use backspace as usual
 
-set ttimeoutlen=50
+set ttimeoutlen=10
 
 " ------------ indentation -------------
 set shiftwidth=4
 set tabstop=4
 set softtabstop=4
-set smartindent		" always set autoindenting on
+set smartindent  " always set autoindenting on
 set smarttab
 set expandtab
 set autoindent  " Copy indent from current line when starting a new line
@@ -112,7 +92,7 @@ set smartcase       " smart case when searching (a=[aA], [A]=[A])
 
 " ----------- others :set -------------
 set laststatus=2  " always show statusbar
-set ruler  " show position
+"set ruler  " show position  (why it shows even if commented?)
 
 set history=1000  " commands and searches history
 
@@ -145,27 +125,20 @@ autocmd VimResized * wincmd =  " resize all splits if vim resized
 " =============================================================================
 " ================================= Key mappings ==============================
 " =============================================================================
-" Commands                        Mode
-" --------                        ----
-" nmap, nnoremap, nunmap          Normal mode
-" imap, inoremap, iunmap          Insert and Replace mode
-" vmap, vnoremap, vunmap          Visual and Select mode
-" xmap, xnoremap, xunmap          Visual mode
-" smap, snoremap, sunmap          Select mode
-" cmap, cnoremap, cunmap          Command-line mode
-" omap, onoremap, ounmap          Operator pending mode
 
 map <Tab> >>
 map <S-Tab> <<
 
-" fast jump to next or prev error in llist
-map <C-E>n :lnext<CR>
-map <C-E>p :lprev<CR>
-
 nnoremap <Leader><space> :nohlsearch<CR>
 
 map <Leader>w :set wrap!<CR>
+map <Leader>n :set number!<CR>
 map <Leader>p :set paste!<CR>
+
+map <Leader>t :call ExecuteWithNormalizeSplits("NERDTreeToggle")<CR>
+map <Leader>e :call ExecuteWithNormalizeSplits("MBEToggle")<CR>
+map <Leader>o :call ExecuteWithNormalizeSplits("TagbarToggle")<CR>
+
 
 " =============================================================================
 " ================================= Plugin specific settings ==================
@@ -182,14 +155,14 @@ let g:ycm_key_list_previous_completion = ['<Up>']
 let g:ycm_complete_in_comments = 1
 
 map gdf :YcmCompleter GoTo<CR>
-map <Leader>t :call ExecuteWithNormalizeSplits("NERDTreeToggle")<CR>
-map <Leader>e :MBEToggle<CR>
 
 " ----------- Syntastic ----------------
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
+let g:syntastic_mode_map ={"mode": "passive"}
+map <Leader>s :SyntasticCheck<CR>
 
 " do not forget to pip intall flake8, pylint, pep8
 let g:syntastic_python_checkers = ['flake8', 'pylint', 'pep8']
@@ -215,26 +188,20 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 " ----------- NERDTree -----------------
 let NERDTreeIgnore = ['\~$', '\.pyc$']
 
+" ----------- airline ------------------
+let g:airline_symbols_ascii = 1  " unicode symbols dont displayed properly
+
+
 " ================================= End =======================================
-"
 " ----------- notes --------------------
 " :help internal-variables  " about variable types
 "
-
-" To future
-
-" set complete-=i  " ctrl-P, ctrl-N
-" set nrformats-=octal
-" look up info about tags
-" look up info about 'viminfo'
-" set formatoptions+=j " Delete comment character when joining commented lines
-" set ttimeout
-" set ttimeoutlen=100
-"
-" Plugin 'plugin/fugitive-vim'
-" backup ------------------
-" set backup
-" set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-" set backupskip=/tmp/*,/private/tmp/*
-" set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-" set writebackup
+" Commands                        Mode
+" --------                        ----
+" nmap, nnoremap, nunmap          Normal mode
+" imap, inoremap, iunmap          Insert and Replace mode
+" vmap, vnoremap, vunmap          Visual and Select mode
+" xmap, xnoremap, xunmap          Visual mode
+" smap, snoremap, sunmap          Select mode
+" cmap, cnoremap, cunmap          Command-line mode
+" omap, onoremap, ounmap          Operator pending mode
