@@ -124,12 +124,6 @@ if [[ -n $TMUX ]]; then
     export PHOME=$(tmux display-message -p "$HOME/projects/#{session_name}")
 fi
 
-DATABASE=tatarstan_osm
-
-export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-source /usr/local/bin/virtualenvwrapper.sh
-
-
 # config less
 # ---------------
 export PAGER=less
