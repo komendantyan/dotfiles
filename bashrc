@@ -16,8 +16,8 @@ HISTCONTROL=ignoreboth
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
+HISTSIZE=10000
+HISTFILESIZE=20000
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -118,8 +118,8 @@ fi
 # Variables
 export EDITOR=vim
 export PATH=$HOME/bin:/opt/wine-staging/bin:$PATH
-export PHOME="$HOME/projects/$(tmux display-message -p '#S')"
-export PYLIBS=/usr/local/lib/python3.5/dist-packages
+export PHOME="$HOME/projects/$(tmux display-message -p '#S' 2>/dev/null || echo "")"
+export PYLIBS=/usr/local/lib/python$(python3 --version | grep -Po '(?<=Python )[0-9].[0-9]')/dist-packages
 
 # config less
 # ---------------

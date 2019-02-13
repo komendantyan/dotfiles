@@ -21,6 +21,8 @@ call vundle#begin()
     " Work with code
     Plugin 'scrooloose/syntastic'  " syntax checker
     Plugin 'Valloric/YouCompleteMe'  " autocompleter
+    " Plugin 'rdnetto/YCM-Generator'  " ycm_extra_conf.py generator
+
     Plugin 'jiangmiao/auto-pairs'  " comfortale work with parentesis
     Plugin 'scrooloose/nerdcommenter'  " simple comment code
     Plugin 'SirVer/ultisnips'  " snippets plugin
@@ -32,6 +34,9 @@ call vundle#begin()
 
     "Work with Git
     Plugin 'tpope/vim-fugitive'  " integration with git
+
+    " other
+    Plugin 'ryanoasis/vim-devicons'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -135,10 +140,12 @@ map <Leader>w :set wrap!<CR>
 map <Leader>n :set number!<CR>
 map <Leader>p :set paste!<CR>
 
-map <Leader>t :call ExecuteWithNormalizeSplits("NERDTreeToggle")<CR>
-map <Leader>e :call ExecuteWithNormalizeSplits("MBEToggle")<CR>
-map <Leader>o :call ExecuteWithNormalizeSplits("TagbarToggle")<CR>
+" :call ExecuteWithNormalizeSplits("NERDTreeToggle")
+map <Leader>t :NERDTreeToggle<CR>
+map <Leader>e :MBEToggle<CR>
+map <Leader>o :TagbarToggle<CR>
 
+map <Leader>s :set spell!<CR>
 
 " =============================================================================
 " ================================= Plugin specific settings ==================
@@ -157,18 +164,37 @@ let g:ycm_complete_in_comments = 1
 map gdf :YcmCompleter GoTo<CR>
 
 " ----------- Syntastic ----------------
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
 let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
+let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
-let g:syntastic_mode_map ={"mode": "passive"}
-map <Leader>s :SyntasticCheck<CR>
+let g:syntastic_mode_map ={"mode": "active"}
+
+let g:syntastic_error_symbol=''    " "\uF00D" "For syntax errors, defaults to ">>"
+let g:syntastic_style_error_symbol=''    " "\uF00D" For style errors, defaults to "S>"
+let g:syntastic_warning_symbol=''   " "\uF128" syntax warnings, defaults to ">>"
+let g:syntastic_style_warning_symbol=''    " "\uF128" For style warnings, defaults to "S>"
+
+
+
+autocmd BufRead *.py SyntasticCheck
 
 " do not forget to pip intall flake8, pylint, pep8
 let g:syntastic_python_checkers = ['flake8', 'pylint', 'pep8']
-let g:syntastic_python_flake8_post_args='--disable=E501'
-let g:syntastic_python_pylint_post_args='--disable=missing-docstring,too-few-public-methods'
-" let g:syntastic_python_pylint_post_args='--disable=C0103,C0111'
+let g:syntastic_python_python_exec = 'python3'
+let g:syntastic_python_pylint_exe = 'python3 -m pylint'
+
+let g:syntastic_cpp_checkers = ['clang']
+let g:syntastic_cpp_compiler = 'clang++'
+let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
+
+"let g:syntastic_python_flake8_post_args='--disable=E501'
+"let g:syntastic_python_pylint_post_args='--disable=missing-docstring,too-few-public-methods'
+"let g:syntastic_python_pylint_post_args='--disable=C0103,C0111'
 
 " ------------ MiniBuferExplorer -------
 
@@ -189,7 +215,47 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 let NERDTreeIgnore = ['\~$', '\.pyc$']
 
 " ----------- airline ------------------
-let g:airline_symbols_ascii = 1  " unicode symbols dont displayed properly
+"let g:airline_symbols_ascii = 1  " unicode symbols dont displayed properly
+let g:airline_skip_empty_sections = 1
+
+
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+
+" unicode symbols
+"let g:airline_left_sep = '»'
+"let g:airline_left_sep = '▶'
+"let g:airline_right_sep = '«'
+"let g:airline_right_sep = '◀'
+let g:airline_symbols.crypt = ''    " "\uF023"
+"let g:airline_symbols.linenr = '␊'
+"let g:airline_symbols.linenr = '␤'
+let g:airline_symbols.maxlinenr = '☰'
+let g:airline_symbols.maxlinenr = ''
+"let g:airline_symbols.branch = '⎇'
+"let g:airline_symbols.paste = 'ρ'
+"let g:airline_symbols.paste = 'Þ'
+"let g:airline_symbols.paste = '∥'
+let g:airline_symbols.spell = 'S̶̶p'    " "S\u0336p\u0336"
+let g:airline_symbols.notexists = '∄'
+let g:airline_symbols.whitespace = 'Ξ'
+
+" powerline symbols
+let g:airline_symbols.branch = ""
+let g:airline_symbols.readonly = "R"    " "\uF8EE"
+let g:airline_symbols.linenr = '¶'
+
+let g:airline_left_sep = ""    " "\uE0B4"
+let g:airline_left_alt_sep = ""    " "\uE0B5"
+let g:airline_right_sep = ""  "   " \uE0B6"
+let g:airline_right_alt_sep = ""    " "\uE0C3 "
+
+
+" ------------ Spelling -------
+set spell
+setlocal spelllang=en,ru
+
 
 
 " ================================= End =======================================
