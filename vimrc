@@ -23,6 +23,8 @@ call vundle#begin()
     Plugin 'Valloric/YouCompleteMe'  " autocompleter
     " Plugin 'rdnetto/YCM-Generator'  " ycm_extra_conf.py generator
 
+    Plugin 'davidhalter/jedi-vim'
+
     Plugin 'jiangmiao/auto-pairs'  " comfortale work with parentesis
     Plugin 'scrooloose/nerdcommenter'  " simple comment code
     Plugin 'SirVer/ultisnips'  " snippets plugin
