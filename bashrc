@@ -125,3 +125,7 @@ export PYLIBS=/usr/local/lib/python$(python3 --version | grep -Po '(?<=Python )[
 # ---------------
 export PAGER=less
 export LESS='-SR'
+
+if [[ -e $HOME/.bashrc.inc ]]; then
+    source .bashrc.inc
+fi
